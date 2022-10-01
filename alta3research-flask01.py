@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""DEMO: receiving JSON"""
+
 
 from flask import Flask
 from flask import request
@@ -11,10 +11,8 @@ from flask import url_for
 from flask import session
 from flask import escape
 
-
-
 app = Flask(__name__)
-
+# A list of dictionary 
 menu = [{
     "meal": "Waakye and fried fish",
     "country": "Ghana",
@@ -43,15 +41,15 @@ def index():
     # returns menu as a json data
    return jsonify(menu)
 
-#@app.route("/")
-def index():
 
+def index():
+  # when the key username has a value in session
   if "username" in session:
     username = session["username"]
     return "Logged in as " + username + "<br>" + \
       "<b><a href = '/logout'>click here to log out</a></b>"
 
-  
+  # when the key username does not have a value in session
   return "You are not logged in <br><a href = '/login'></b>" + \
       "click here to log in</b></a>"
 
@@ -65,7 +63,7 @@ def login():
       session["username"] = request.form.get("username")
       return redirect(url_for("index"))
 
-   
+   # html data is sent if a get request is received
    return """
    <form action = "" method = "post">
       <p><input type = text name = username></p>
@@ -75,7 +73,7 @@ def login():
 
 @app.route("/logout")
 def logout():
-
+# remove the username from the session if it is present
    session.pop("username", None)
    return redirect(url_for("index"))
 
