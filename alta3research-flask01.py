@@ -73,7 +73,7 @@ def login():
 
 @app.route("/logout")
 def logout():
-# remove the username from the session if it is present
+# delete the username from the session if it is present
    session.pop("username", None)
    return redirect(url_for("index"))
 
